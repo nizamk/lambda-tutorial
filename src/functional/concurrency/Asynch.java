@@ -40,6 +40,7 @@ public class Asynch extends AbstractDemo {
 	List<String> list = Arrays.asList("A", "B", "C", "D");
 	List<String> urls = Arrays.asList("example.com", "www.mimos.my");
 
+
 	/**
 	 * Create a Promise object (CompletableFuture without underlying task/thread pool)
 	 * that completes after a give java.util.Duration lapsed.
