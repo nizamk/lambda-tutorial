@@ -1,6 +1,6 @@
 package functional.utilities;
 
-import functional.lambda.dry.EmailFiltering;
+import functional.option.users.OptionMonad;
 
 import java.util.function.Consumer;
 
@@ -15,7 +15,7 @@ public class Main {
 	}
 
 	public static void main(String... args) {
-		new Main(new EmailFiltering()).run (t -> {
+		new Main(new OptionMonad()).run(t -> {
 			t.runNonFunctional();
 			t.runFunctional();
 		});
