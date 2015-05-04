@@ -1,0 +1,14 @@
+1. what is lambda
+2. why lambda - key to functional programming
+    - function - composable and polymorphic
+    - high-order function
+3. what is functional programming
+4. types of lambda
+5. functional abstraction - monad
+    - optional
+    - stream
+    - completablefuture
+6. Use-case 1: Show list of web-sites with specific keyword
+    - crawl web sites
+    - render the display showing the keyword and the web site
+
