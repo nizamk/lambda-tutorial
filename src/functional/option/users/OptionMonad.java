@@ -25,7 +25,7 @@ public class OptionMonad extends AbstractDemo {
 		Optional<Integer> age = UserRepository.findById(3).map(i -> i.age);
 		age.ifPresent(t -> System.out.println("Age: "+t));
 
-		// Nested monad
+		// Nested option - what??
 		Optional<Optional<String>> gender = UserRepository.findById(3).map(i -> i.gender);
 
 		// Flatmapping an option

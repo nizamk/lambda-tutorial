@@ -1,6 +1,6 @@
 package functional.utilities;
 
-import functional.option.users.OptionMonad;
+import functional.concurrency.Asynch;
 
 import java.util.function.Consumer;
 
@@ -15,7 +15,7 @@ public class Main {
 	}
 
 	public static void main(String... args) {
-		new Main(new OptionMonad()).run(t -> {
+		new Main(new Asynch()).run(t -> {
 			t.runNonFunctional();
 			t.runFunctional();
 		});

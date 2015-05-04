@@ -1,6 +1,10 @@
 package functional.concurrency;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import functional.concurrency.creditrating.CreditRating;
+import functional.concurrency.creditrating.MockedDB;
+import functional.concurrency.creditrating.RatingSystem;
+import functional.concurrency.creditrating.User;
 import functional.utilities.AbstractDemo;
 import functional.utilities.AsynchMockedOperation;
 import functional.utilities.Unchecked;
@@ -47,6 +51,7 @@ public class Asynch extends AbstractDemo {
 	public static <T> CompletableFuture<T> wait(Duration duration) {
 		final CompletableFuture<T> promise = new CompletableFuture<>();
 		scheduler.schedule(() -> {
+			log.info("Timeout Watcher.");
 			final TimeoutException ex = new TimeoutException("timeout after " + duration.getSeconds());
 			return promise.completeExceptionally(ex);
 		}, duration.toMillis(), MILLISECONDS);
@@ -68,8 +73,8 @@ public class Asynch extends AbstractDemo {
 	@Override
 	public void runFunctional() {
 		super.runFunctional();
-		demo0();
-//		demoAsynchCallWithTimeout();
+//		demo0();
+		demoAsynchCallWithTimeout();
 //		demoCreditRating();
 	}
 
@@ -107,27 +112,27 @@ public class Asynch extends AbstractDemo {
 		 * - Get credit rating for this user from 2 different systems (in parallel)
 		 * - Combine the rating to get effective rating
 		 */
-//		CompletableFuture<User> user = CompletableFuture.supplyAsync(() -> {
-//			log.info("getUser");
-//			return new MockedDB().getUser(2);
-//		});
-//		CompletableFuture<CreditRating> rating1 =
-//				user.thenApplyAsync(t -> {
-//					log.info("getRatingMaybank()");
-//			more delays
-//					return RatingSystem.getRatingFromMayBank(t);
-//				});
-//		CompletableFuture<CreditRating> rating2 =
-//				user.thenApplyAsync(t -> {
-//					log.info("getRatingHSBC()");
-//					return RatingSystem.getRatingFromHSBC(t);
-//				});
-//
-//		rating2.thenCombineAsync(rating1, (a,b) -> {
-//			log.info("combineRating()");
-//			return CreditRating.combine(a, b);
-//		})
-//		.thenAccept(System.out::println).join();
+		CompletableFuture<User> user = CompletableFuture.supplyAsync(() -> {
+			log.info("getUser");
+			return new MockedDB().getUser(2);
+		});
+		CompletableFuture<CreditRating> rating1 =
+				user.thenApplyAsync(t -> {
+					log.info("getRatingMaybank()");
+					// more delays
+					return RatingSystem.getRatingFromMayBank(t);
+				});
+		CompletableFuture<CreditRating> rating2 =
+				user.thenApplyAsync(t -> {
+					log.info("getRatingHSBC()");
+					return RatingSystem.getRatingFromHSBC(t);
+				});
+
+		rating2.thenCombineAsync(rating1, (a,b) -> {
+			log.info("combineRating()");
+			return CreditRating.combine(a, b);
+		})
+		.thenAccept(System.out::println).join();
 	}
 
 	public void demo() {
