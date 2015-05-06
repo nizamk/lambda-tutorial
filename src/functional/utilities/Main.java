@@ -1,6 +1,6 @@
 package functional.utilities;
 
-import functional.concurrency.Asynch;
+import functional.lambda.HighOrderFunction;
 
 import java.util.function.Consumer;
 
@@ -15,7 +15,7 @@ public class Main {
 	}
 
 	public static void main(String... args) {
-		new Main(new Asynch()).run(t -> {
+		new Main(new HighOrderFunction()).run(t -> {
 			t.runNonFunctional();
 			t.runFunctional();
 		});

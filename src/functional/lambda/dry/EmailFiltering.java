@@ -41,9 +41,6 @@ public class EmailFiltering extends AbstractDemo {
 
 		);
 
-		List<Email> blackList2 = Arrays.asList(
-				new Email("hello", "hello world", "ahmad@mimos.my", "This is hell world")
-		);
 
 		Predicate<Email> filter0 = FactoryFilters.notSentByAnyOf.apply(blackList);
 		Predicate<Email> filter1 = FactoryFilters.any(

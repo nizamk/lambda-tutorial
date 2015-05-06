@@ -27,7 +27,7 @@ public class FileUtil {
 	 * @throws java.io.IOException
 	 */
 	public static List<File> scanFiles(final String dirRoot) throws IOException {
-		log.info("Thread ==> " + Thread.currentThread().getName() + " {Scan files..}");
+		log.info("{Scan files..}");
 
 		return Stream.of(new File(dirRoot).listFiles(p -> p.toString().endsWith(".txt")))
 				.collect(Collectors.toList());
@@ -41,7 +41,7 @@ public class FileUtil {
 	 * @throws IOException
 	 */
 	public static long wordCount(String filePath) throws IOException {
-		log.info("Thread ==> " + Thread.currentThread().getName() + " {Word count..}");
+		log.info("{Word count..}");
 
 		return Files.lines(Paths.get(filePath))
 				.flatMap(line -> Arrays.stream(line.split(" ")))

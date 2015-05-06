@@ -40,16 +40,7 @@ public class OptionalMonad extends AbstractDemo {
 	}
 
 	/*
-	With monad...the following deep nesting of "if non-null logic is removed
-
-	if (computer != null) {
-		SoundCardAncient card = computer.getCard();
-		if (card != null) {
-			Usb usb = card.getUsb();
-			if (usb != null)
-				return usb.getVersion();
-		}
-	}
+	With monad...deep nesting of "if non-null logic is removed
 	*/
 	public String getUsbVersion(Optional<Computer> computer) {
 		return computer
