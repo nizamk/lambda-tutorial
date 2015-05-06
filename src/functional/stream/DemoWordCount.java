@@ -18,14 +18,15 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-
-public class FileWordCount extends AbstractDemo {
-
-	private static Logger log = LoggerFactory.getLogger(FileWordCount.class);
+/**
+ * Created by nizamuddin on 06/05/2015.
+ */
+public class DemoWordCount extends AbstractDemo {
+	private static Logger log = LoggerFactory.getLogger(DemoWordCount.class);
 	String dirRoot;
 	List<File> files;
 
-	public FileWordCount(String dirRoot) {
+	public DemoWordCount(String dirRoot) {
 		this.dirRoot = dirRoot;
 		try {
 			files = FileUtil.scanFiles(dirRoot);
@@ -57,7 +58,7 @@ public class FileWordCount extends AbstractDemo {
 	 * @throws IOException
 	 */
 	private long countMapReduce() throws IOException {
-		log.info("Thread ==> " + Thread.currentThread().getName() + " {Starting countMapReduce()}");
+		log.info("{Starting countMapReduce()}");
 
 		return files.stream()
 				.map(Unchecked.function(file -> FileUtil.wordCount(file.getAbsolutePath())))
@@ -75,7 +76,7 @@ public class FileWordCount extends AbstractDemo {
 	 * @throws IOException
 	 */
 	public long countFlatMap() throws IOException {
-		log.info("Thread ==> " + Thread.currentThread().getName() + " {Starting countFlatMap()}");
+		log.info("{Starting countFlatMap()}");
 
 		return files.stream()
 				.flatMap(Unchecked.function(file -> Files.lines(Paths.get(file.getAbsolutePath()))))
@@ -90,12 +91,12 @@ public class FileWordCount extends AbstractDemo {
 	 * @throws IOException
 	 */
 	private long countParallelStream() throws IOException {
-		log.info("Thread ==> " + Thread.currentThread().getName() + " {Starting countParallelStream()}");
+		log.info("{Starting countParallelStream()}");
 
 		return files.parallelStream()
 				.map(Unchecked.function(file -> FileUtil.wordCount(file.getAbsolutePath())))
 				.reduce(0L, ((acc, e) -> {
-					log.info("Thread ==> " + Thread.currentThread().getName() + " {Reduction Phase-ParallelStream}");
+					log.info("{Reduction Phase-ParallelStream}");
 					return acc + e;
 				}));
 	}
@@ -107,7 +108,7 @@ public class FileWordCount extends AbstractDemo {
 	 * @throws IOException
 	 */
 	public long countCompletableFuture() throws IOException {
-		log.info("Thread ==> " + Thread.currentThread().getName() + " {Starting countCompletableFuture()}");
+		log.info("{Starting countCompletableFuture()}");
 
 		return files.stream()
 				.map(file -> CompletableFuture.supplyAsync(Unchecked.supplier(() -> FileUtil.wordCount(file.getAbsolutePath()))))
@@ -115,7 +116,7 @@ public class FileWordCount extends AbstractDemo {
 				.stream()                     // ??
 				.map(future -> future.join())
 				.reduce(0L, (acc, e) -> {
-					log.info("Thread ==> " + Thread.currentThread().getName() + " {Reduction Phase-CompletableFuture}");
+					log.info("{Reduction Phase-CompletableFuture}");
 					return acc + e;
 				});
 	}
@@ -127,7 +128,7 @@ public class FileWordCount extends AbstractDemo {
 	 * @throws IOException
 	 */
 	private long countParallelStreamFlatMap() throws IOException {
-		log.info("Thread ==> " + Thread.currentThread().getName() + " {Starting countParallelStreamFlatMap()}");
+		log.info("{Starting countParallelStreamFlatMap()}");
 
 		return files.parallelStream()
 				.flatMap(Unchecked.function(file -> Files.lines(Paths.get(file.getAbsolutePath()))))
@@ -155,7 +156,7 @@ public class FileWordCount extends AbstractDemo {
 		Map<String, Long> results = new HashMap<>();
 
 		results.putIfAbsent("sequential(map-reduce): ",
-				Util.execute0("Sequential(map-reduce) count =>" , Unchecked.supplier(() -> countMapReduce())));
+				Util.execute0("Sequential(map-reduce) count =>", Unchecked.supplier(() -> countMapReduce())));
 		results.putIfAbsent("Sequential(flatmap): ",
 				Util.execute0("Sequential(flatmap) count = >", Unchecked.supplier(() -> countFlatMap())));
 //		results.putIfAbsent("Completablefuture(map-reduce): ",

@@ -59,6 +59,7 @@ public class GeneralStream extends AbstractDemo {
 				.findFirst()
 				.ifPresent(a -> System.out.println(a));
 
+
 		// laziness
 //		values.stream()
 //				.filter(s -> {

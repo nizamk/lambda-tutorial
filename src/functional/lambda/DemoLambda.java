@@ -19,6 +19,7 @@ public class DemoLambda extends AbstractDemo {
 		super.runNonFunctional();
 		internalIteration();
 	}
+
 	@Override
 	public void runFunctional() {
 		super.runFunctional();
@@ -26,7 +27,7 @@ public class DemoLambda extends AbstractDemo {
 		deferredExecution();
 	}
 
-	private void deferredExecution() {
+	public void deferredExecution() {
 		IntConsumer run = i -> System.out.println("Print: " + i);
 		repeat(10, run);
 	}
@@ -56,13 +57,9 @@ public class DemoLambda extends AbstractDemo {
 		Predicate<Integer> isGreaterThan6 = i -> i > 6;
 		Function<Integer, Predicate<Integer>> isGreaterThan = pivot -> i -> i > pivot;
 
-		// function composition
-		Function<Integer, Predicate<Integer>> isEvenAndGreaterThan =
-				pivot -> isEven.and(isGreaterThan.apply(pivot));
-
 		System.out.println(list.stream()
-				.filter(isEvenAndGreaterThan.apply(6))
-//				.filter(isGreaterThan.apply(8))
+				.filter(isEven)
+				.filter(isGreaterThan6)
 				.map(i -> i * 2)
 				.findFirst());
 	}

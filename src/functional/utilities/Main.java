@@ -1,6 +1,6 @@
 package functional.utilities;
 
-import functional.lambda.HighOrderFunction;
+import functional.lambda.DemoHOF;
 
 import java.util.function.Consumer;
 
@@ -15,7 +15,7 @@ public class Main {
 	}
 
 	public static void main(String... args) {
-		new Main(new HighOrderFunction()).run(t -> {
+		new Main(new DemoHOF()).run(t -> {
 			t.runNonFunctional();
 			t.runFunctional();
 		});
