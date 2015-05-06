@@ -1,6 +1,6 @@
 package functional.utilities;
 
-import functional.lambda.DemoLambda;
+import functional.stream.DemoStream;
 
 import java.util.function.Consumer;
 
@@ -15,7 +15,7 @@ public class Main {
 	}
 
 	public static void main(String... args) {
-		new Main(new DemoLambda()).run(t -> {
+		new Main(new DemoStream()).run(t -> {
 			t.runNonFunctional();
 			t.runFunctional();
 		});

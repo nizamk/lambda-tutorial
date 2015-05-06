@@ -7,7 +7,7 @@ public class AbstractDemo implements IDemo {
 	@Override
 	public void runNonFunctional() {
 		System.out.println("******************");
-		System.out.println("*   Current Way  *");
+		System.out.println("*  Current Way   *");
 		System.out.println("******************");
 	}
 	@Override
