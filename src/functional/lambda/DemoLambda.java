@@ -1,9 +1,11 @@
 package functional.lambda;
 
+import functional.lambda.pattern.Resource;
 import functional.utilities.AbstractDemo;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.Predicate;
@@ -17,14 +19,50 @@ public class DemoLambda extends AbstractDemo {
 	@Override
 	public void runNonFunctional() {
 		super.runNonFunctional();
-		internalIteration();
+//		internalIteration();
+		boilerplate();
 	}
 
 	@Override
 	public void runFunctional() {
 		super.runFunctional();
 //		externalIteration();
-		deferredExecution();
+//		deferredExecution();
+		executeAroundMethod();
+	}
+
+	public void boilerplate() {
+		/*
+		This boilerplate code is duplicated whenever
+		usage of resource is required
+		 */
+		Resource resource = new Resource();
+		try {
+			resource.use();
+			System.out.println("use resource to access data");
+		} finally {
+			resource.dispose();
+		}
+	}
+
+	public void executeAroundMethod() {
+		withResource( t -> {
+			t.use();
+			System.out.println("use resource to access data");
+		});
+	}
+
+	/**
+	 * The Lender(withResource() - holding the resource) loans resource to
+	 * lendee (the Consumer lambda accessing it)
+	 */
+	private void withResource(Consumer<Resource> consumer) {
+		Resource resource = new Resource();
+		try {
+			consumer.accept(resource);
+		} finally {
+			resource.dispose();
+		}
 	}
 
 	public void deferredExecution() {

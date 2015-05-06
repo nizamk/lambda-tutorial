@@ -3,7 +3,7 @@ package functional.utilities;
 /**
  * Created by nizamuddin on 17/04/2015.
  */
-public class AbstractDemo implements Demo {
+public class AbstractDemo implements IDemo {
 	@Override
 	public void runNonFunctional() {
 		System.out.println("\n******************");

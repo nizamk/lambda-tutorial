@@ -1,15 +1,16 @@
-package functional.option.nested;
+package functional.option;
 
+import functional.option.nested.*;
+import functional.option.users.User;
+import functional.option.users.UserRepository;
 import functional.utilities.AbstractDemo;
 
 import java.util.Optional;
 
-/*
-Optional Monad:
-- makes the possibility of missing data EXPLICIT in the type system
-- while HIDING the boilerplate of "if non-null" logic
-*/
-public class OptionalMonad extends AbstractDemo {
+/**
+ * Created by nizamuddin on 06/05/2015.
+ */
+public class DemoOptional extends AbstractDemo {
 
 	Computer computer = new Computer();
 
@@ -21,7 +22,8 @@ public class OptionalMonad extends AbstractDemo {
 	@Override
 	public void runFunctional() {
 		super.runFunctional();
-		System.out.println("The USB version is: " + this.getUsbVersion(Optional.ofNullable(computer)));
+		demoNestedNonNull();
+		demoUsers();
 	}
 
 	/*
@@ -42,7 +44,7 @@ public class OptionalMonad extends AbstractDemo {
 	/*
 	With monad...deep nesting of "if non-null logic is removed
 	*/
-	public String getUsbVersion(Optional<Computer> computer) {
+	private String getUsbVersion(Optional<Computer> computer) {
 		return computer
 				.flatMap(Computer::getCard)
 				.flatMap(SoundCard::getUsb)
@@ -57,7 +59,7 @@ public class OptionalMonad extends AbstractDemo {
 		do_stg(soundcard)
 
 	 */
-	public void ifValuePresent() {
+	private void ifValuePresent() {
 		Optional<SoundCard> card = computer.getCard();
 		card.ifPresent(System.out::println);
 	}
@@ -71,7 +73,7 @@ public class OptionalMonad extends AbstractDemo {
 	}
 
 	*/
-	public void extractAndTransform() {
+	private void extractAndTransform() {
 		Optional<SoundCard> card = computer.getCard();
 		Optional<Optional<Usb>> usb = card.map(SoundCard::getUsb);
 
@@ -87,7 +89,29 @@ public class OptionalMonad extends AbstractDemo {
 	Demonstrates that with Optional<T>, "if non-null" logic
 	is removed
 	 */
-	public void demo() {
+	public void demoNestedNonNull() {
 		System.out.println("The USB version is: " + this.getUsbVersion(Optional.ofNullable(computer)));
+	}
+
+	public void demoUsers() {
+		Optional<User> user = UserRepository.findById(3);
+
+		// Perform side-effect if value present
+		user.ifPresent(t -> System.out.println("Name: " + t.getFirstName() + "," + t.getLastName()));
+
+		// Mapping an option
+		Optional<Integer> age = UserRepository.findById(3).map(i -> i.getAge());
+		age.ifPresent(t -> System.out.println("Age: "+t));
+
+		// Nested option - what??
+		Optional<Optional<String>> gender = UserRepository.findById(3).map(i -> i.getGender());
+
+		// Flatmapping an option
+		Optional<String> gender1 = UserRepository.findById(3).flatMap(i -> i.getGender());
+		gender1.ifPresent(i -> System.out.println("Gender: " + i));
+
+		// Chaining options
+		User user1 = UserRepository.findById(4).orElse(new User(0, "User Not Found", "", -1, Optional.empty()));
+		System.out.println("User: " + user1.getFirstName());
 	}
 }

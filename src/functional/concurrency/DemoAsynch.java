@@ -24,11 +24,10 @@ import java.util.function.Function;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 /**
- * Created by nizamuddin on 23/04/2015.
+ * Created by nizamuddin on 06/05/2015.
  */
-public class Asynch extends AbstractDemo {
-
-	private static final Logger log = LoggerFactory.getLogger(Asynch.class);
+public class DemoAsynch extends AbstractDemo {
+	private static final Logger log = LoggerFactory.getLogger(DemoAsynch.class);
 	private static final ScheduledExecutorService scheduler =
 			Executors.newScheduledThreadPool(
 					1,
@@ -75,6 +74,7 @@ public class Asynch extends AbstractDemo {
 	public void runFunctional() {
 		super.runFunctional();
 //		demo0();
+//		demo();
 		demoAsynchCallWithTimeout();
 //		demoCreditRating();
 	}
@@ -93,19 +93,6 @@ public class Asynch extends AbstractDemo {
 	}
 
 	public void demoCreditRating() {
-
-		// run in different thread - get user detail from remote system
-//		log.info("Rating: " + rating.getRating());
-
-//		CreditRating rating = CompletableFuture.supplyAsync(() -> {
-//			log.info("getUser()");
-//			return new MockedDB().getUser(2);
-//		}).thenApply(t -> {
-//			log.info("getRating()");
-//			return RatingSystem.getRatingFromHSBC(t);
-//		}).join();
-//
-//		System.out.println("Rating: " + rating.getRating());
 
 		/**
 		 * Use case:
@@ -133,7 +120,7 @@ public class Asynch extends AbstractDemo {
 			log.info("combineRating()");
 			return CreditRating.combine(a, b);
 		})
-		.thenAccept(System.out::println).join();
+				.thenAccept(System.out::println).join();
 	}
 
 	public void demo() {

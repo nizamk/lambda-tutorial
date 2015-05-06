@@ -1,9 +1,9 @@
 package functional.utilities;
 
 /**
- * Created by nizamuddin on 17/04/2015.
+ * Created by nizamuddin on 06/05/2015.
  */
-public interface Demo {
+public interface IDemo {
 	public void runNonFunctional();
 
 	public void runFunctional();
