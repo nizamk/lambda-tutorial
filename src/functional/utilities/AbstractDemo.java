@@ -6,7 +6,7 @@ package functional.utilities;
 public class AbstractDemo implements IDemo {
 	@Override
 	public void runNonFunctional() {
-		System.out.println("\n******************");
+		System.out.println("******************");
 		System.out.println("*   Current Way  *");
 		System.out.println("******************");
 	}
