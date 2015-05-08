@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Created by nizamuddin on 06/05/2015.
@@ -83,9 +84,12 @@ public class DemoStream extends AbstractDemo {
 	}
 
 	public void flattenNestedLoop() {
-		users.stream()
-				.flatMap(i -> i.roles.stream())
-				.flatMap(i -> i.resources.stream())
-				.forEach(i -> System.out.println("Resource: " + i.name));
+		Stream<Stream<Role>> stream = users.stream()
+				.map(i -> i.roles.stream());
+		stream.forEach(i -> i.forEach(s -> System.out.println(s.name)));
+//		users.stream()
+//				.flatMap(i -> i.roles.stream())
+//				.flatMap(i -> i.resources.stream())
+//				.forEach(i -> System.out.println("Resource: " + i.name));
 	}
 }
