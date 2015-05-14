@@ -50,6 +50,7 @@ public class DemoHOF extends AbstractDemo {
 		int sum = list.stream()
 				.reduce(0, (acc, e) -> acc + e);
 		System.out.println("Sum: " + sum);
+
 		String s = str.stream()
 				.reduce("", (acc, e) -> acc + e);
 		System.out.println("Sum: " + s);
@@ -59,6 +60,9 @@ public class DemoHOF extends AbstractDemo {
 		// Consumer<T> - void accept(T t)
 		Consumer<Integer> cs = t -> System.out.println("Consumer<T>: " + t);
 		cs.accept(100);
+
+		Consumer<String> v = t -> System.out.println(t);
+		v.accept("hai there");
 
 		// Supplier<T> - T get(void)
 		Supplier<String> sp = () -> "Hello";

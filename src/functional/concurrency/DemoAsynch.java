@@ -28,6 +28,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  */
 public class DemoAsynch extends AbstractDemo {
 	private static final Logger log = LoggerFactory.getLogger(DemoAsynch.class);
+
 	private static final ScheduledExecutorService scheduler =
 			Executors.newScheduledThreadPool(
 					1,
@@ -73,9 +74,9 @@ public class DemoAsynch extends AbstractDemo {
 	@Override
 	public void runFunctional() {
 		super.runFunctional();
-//		demo0();
+		demo0();
 //		demo();
-		demoAsynchCallWithTimeout();
+//		demoAsynchCallWithTimeout();
 //		demoCreditRating();
 	}
 
@@ -143,17 +144,12 @@ public class DemoAsynch extends AbstractDemo {
 	public void demoThenAccept() {
 
 		// Semantics of CompletableFuture.thenAccept() is asynchronous processing Handler
-		list.stream()
-				.map(t -> CompletableFuture.supplyAsync(() -> {
-//					if (t.equals("B"))
-//						throw new RuntimeException();
-					return "Processing: " + t;
-
-				}))
+//		list.stream()
+//				.map(t -> CompletableFuture.supplyAsync(() -> "Processing: " + t))
 //				.map(t -> t.whenComplete((result, error) -> log.info(result + ":" + error)))
-				.map(t -> t.thenAccept(e -> log.info(Thread.currentThread().getName() + ":" + e)))
-				.map(t -> t.join())
-				.count(); // terminal operation
+//				.map(t -> t.thenAccept(e -> log.info(Thread.currentThread().getName() + ":" + e)))
+//				.map(t -> t.join())
+//				.count(); // terminal operation
 
 	}
 
@@ -163,7 +159,7 @@ public class DemoAsynch extends AbstractDemo {
 	}
 
 	public void send(String response) {
-		log.info("Thread => " + Thread.currentThread().getName() + " {Sending response ..." + response.length() + "}\n");
+		log.info(" {Sending response ..." + response.length() + "}\n");
 	}
 
 	private void serveNonBlocking0() throws InterruptedException, ExecutionException {
