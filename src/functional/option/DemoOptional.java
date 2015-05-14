@@ -22,7 +22,7 @@ public class DemoOptional extends AbstractDemo {
 	@Override
 	public void runFunctional() {
 		super.runFunctional();
-		demoNestedNonNull();
+//		demoNestedNonNull();
 		demoUsers();
 	}
 
@@ -76,11 +76,12 @@ public class DemoOptional extends AbstractDemo {
 	private void extractAndTransform() {
 		Optional<SoundCard> card = computer.getCard();
 		Optional<Optional<Usb>> usb = card.map(SoundCard::getUsb);
+		Optional<Usb> usb1 = card.flatMap(SoundCard::getUsb);
 
 		card.map(SoundCard::getUsb)
-				.filter(usb1 -> { return "3.0".equals(usb1.get().getVersion());})
-				.ifPresent(usb2 -> {
-					System.out.println(usb2.get().getVersion());
+				.filter(usb2 -> { return "3.0".equals(usb1.get().getVersion());})
+				.ifPresent(usb3 -> {
+					System.out.println(usb3.get().getVersion());
 				});
 	}
 

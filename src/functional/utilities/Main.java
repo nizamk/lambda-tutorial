@@ -1,6 +1,6 @@
 package functional.utilities;
 
-import functional.lambda.DemoHOF;
+import functional.concurrency.DemoAsynch;
 
 import java.util.function.Consumer;
 
@@ -15,7 +15,7 @@ public class Main {
 	}
 
 	public static void main(String... args) {
-		new Main(new DemoHOF()).run(t -> {
+		new Main(new DemoAsynch()).run(t -> {
 			t.runNonFunctional();
 			t.runFunctional();
 		});

@@ -28,7 +28,7 @@ public class DemoStream extends AbstractDemo {
 				}
 		);
 
-		// add resources to user
+		// add resources to role
 		users.forEach(user -> {
 			user.roles.forEach(role -> {
 				IntStream

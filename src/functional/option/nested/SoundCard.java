@@ -9,6 +9,7 @@ public class SoundCard {
 	private Optional<Usb> usb;
 
 	public SoundCard() {
+
 		usb = Optional.ofNullable(new Usb());
 	}
 

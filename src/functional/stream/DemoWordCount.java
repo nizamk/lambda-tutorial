@@ -157,8 +157,8 @@ public class DemoWordCount extends AbstractDemo {
 
 		results.putIfAbsent("sequential(map-reduce): ",
 				Util.execute0("Sequential(map-reduce) count =>", Unchecked.supplier(() -> countMapReduce())));
-		results.putIfAbsent("Sequential(flatmap): ",
-				Util.execute0("Sequential(flatmap) count = >", Unchecked.supplier(() -> countFlatMap())));
+//		results.putIfAbsent("Sequential(flatmap): ",
+//				Util.execute0("Sequential(flatmap) count = >", Unchecked.supplier(() -> countFlatMap())));
 //		results.putIfAbsent("Completablefuture(map-reduce): ",
 //				Util.execute0("completablefuture(map-reduce) count => ", Unchecked.supplier(() -> countCompletableFuture())));
 //		results.putIfAbsent("Parallel(map-reduce)" ,

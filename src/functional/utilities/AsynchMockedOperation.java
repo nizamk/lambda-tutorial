@@ -34,7 +34,7 @@ public class AsynchMockedOperation {
 		return CompletableFuture.supplyAsync(Unchecked.supplier(() -> {
 			try (InputStream input = url.openStream()) {
 //				Thread.sleep(2000);
-				log.info("Thread => " + Thread.currentThread().getName() + " {Started downloading from " + url.toString() + "}\n");
+				log.info(" {Started downloading from " + url.toString() + "}\n");
 				return IOUtils.toString(input, StandardCharsets.UTF_8);
 			}
 		}));

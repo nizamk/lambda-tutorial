@@ -74,10 +74,9 @@ public class DemoAsynch extends AbstractDemo {
 	@Override
 	public void runFunctional() {
 		super.runFunctional();
-		demo0();
 //		demo();
 //		demoAsynchCallWithTimeout();
-//		demoCreditRating();
+		demoCreditRating();
 	}
 
 	public void demo0() {
@@ -120,15 +119,14 @@ public class DemoAsynch extends AbstractDemo {
 		rating2.thenCombineAsync(rating1, (a,b) -> {
 			log.info("combineRating()");
 			return CreditRating.combine(a, b);
-		})
-				.thenAccept(System.out::println).join();
+		}).thenAccept(System.out::println).join();
 	}
 
 	public void demo() {
-		int len = CompletableFuture.supplyAsync(Unchecked.supplier(() -> new AsynchMockedOperation().downloadFromUrl(new URL("http://example.com"))))
+		String len = CompletableFuture.supplyAsync(Unchecked.supplier(() -> new AsynchMockedOperation().downloadFromUrl(new URL("http://example.com"))))
 				.thenApply(s -> {
 					log.info("thenApply()");
-					return s.length();
+					return s;
 				}).join();
 		System.out.println(len);
 	}
